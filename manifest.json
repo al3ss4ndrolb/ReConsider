@@ -3,7 +3,8 @@
   "name": "ReConsider",
   "version": "1.0",
   "description": "ReConsider before visiting certain websites",
-  "permissions": ["storage", "webNavigation"],
+  "permissions": ["storage", "webNavigation", "scripting"],
+  "host_permissions": ["<all_urls>"],
   "action": {
     "default_popup": "popup.html",
     "default_icon": {
@@ -15,7 +16,8 @@
     {
       "matches": ["<all_urls>"],
       "css": ["styles.css"],
-      "js": ["content.js"]
+      "js": ["phrases.js", "content.js"],
+      "run_at": "document_start"
     }
   ],
   "icons": {

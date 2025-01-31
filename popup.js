@@ -14,32 +14,10 @@ document.addEventListener("DOMContentLoaded", function () {
   );
 
   // Add URL button handler
-  document.getElementById("addUrl").addEventListener("click", function () {
-    const urlInput = document.getElementById("newUrl");
-    let url = urlInput.value.trim();
-
-    if (url) {
-      // Clean up the URL
-      url = url.toLowerCase();
-      url = url.replace(/^(?:https?:\/\/)?(?:www\.)?/i, ""); // Remove protocol and www
-      url = url.split("/")[0]; // Remove paths
-
-      chrome.storage.sync.get(["urls"], function (data) {
-        const urls = data.urls || [];
-        if (!urls.includes(url)) {
-          urls.push(url);
-          chrome.storage.sync.set({ urls: urls }, function () {
-            displayUrls(urls);
-            urlInput.value = "";
-          });
-        } else {
-          urlInput.value = "";
-          urlInput.placeholder = "URL already added!";
-          setTimeout(() => {
-            urlInput.placeholder = "Enter website (e.g., youtube.com)";
-          }, 2000);
-        }
-      });
+  document.getElementById("addUrl").addEventListener("click", addUrl);
+  document.getElementById("newUrl").addEventListener("keypress", function (e) {
+    if (e.key === "Enter") {
+      addUrl();
     }
   });
 
@@ -53,33 +31,78 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 
   // Add custom phrase handler
-  document.getElementById("addPhrase").addEventListener("click", function () {
-    const phraseInput = document.getElementById("customPhrase");
-    const phrase = phraseInput.value.trim();
-
-    if (phrase) {
-      chrome.storage.sync.get(["customPhrases"], function (data) {
-        const phrases = data.customPhrases || [];
-        if (!phrases.includes(phrase)) {
-          phrases.push(phrase);
-          chrome.storage.sync.set({ customPhrases: phrases }, function () {
-            phraseInput.value = "";
-            phraseInput.placeholder = "Phrase added successfully!";
-            setTimeout(() => {
-              phraseInput.placeholder = "Add your own phrase (optional)";
-            }, 2000);
-          });
-        } else {
-          phraseInput.value = "";
-          phraseInput.placeholder = "Phrase already exists!";
-          setTimeout(() => {
-            phraseInput.placeholder = "Add your own phrase (optional)";
-          }, 2000);
-        }
-      });
-    }
-  });
+  document.getElementById("addPhrase").addEventListener("click", addPhrase);
+  document
+    .getElementById("customPhrase")
+    .addEventListener("keypress", function (e) {
+      if (e.key === "Enter") {
+        addPhrase();
+      }
+    });
 });
+
+function cleanUrl(url) {
+  // Remove protocol, www, and any paths/parameters
+  url = url.toLowerCase().trim();
+  url = url.replace(/^(?:https?:\/\/)?(?:www\.)?/i, "");
+  url = url.split(/[/?#]/)[0]; // Remove paths, query parameters, and hashes
+  return url;
+}
+
+function addUrl() {
+  const urlInput = document.getElementById("newUrl");
+  let url = urlInput.value.trim();
+
+  if (url) {
+    url = cleanUrl(url);
+    console.log("Adding URL:", url); // Debug log
+
+    chrome.storage.sync.get(["urls"], function (data) {
+      const urls = data.urls || [];
+      if (!urls.includes(url)) {
+        urls.push(url);
+        chrome.storage.sync.set({ urls: urls }, function () {
+          console.log("URLs saved:", urls); // Debug log
+          displayUrls(urls);
+          urlInput.value = "";
+          showMessage(urlInput, "Website added successfully!");
+        });
+      } else {
+        urlInput.value = "";
+        showMessage(urlInput, "URL already added!");
+      }
+    });
+  }
+}
+
+function addPhrase() {
+  const phraseInput = document.getElementById("customPhrase");
+  const phrase = phraseInput.value.trim();
+
+  if (phrase) {
+    chrome.storage.sync.get(["customPhrases"], function (data) {
+      const phrases = data.customPhrases || [];
+      if (!phrases.includes(phrase)) {
+        phrases.push(phrase);
+        chrome.storage.sync.set({ customPhrases: phrases }, function () {
+          phraseInput.value = "";
+          showMessage(phraseInput, "Phrase added successfully!");
+        });
+      } else {
+        phraseInput.value = "";
+        showMessage(phraseInput, "Phrase already exists!");
+      }
+    });
+  }
+}
+
+function showMessage(input, message) {
+  const originalPlaceholder = input.placeholder;
+  input.placeholder = message;
+  setTimeout(() => {
+    input.placeholder = originalPlaceholder;
+  }, 2000);
+}
 
 function displayUrls(urls) {
   const urlList = document.getElementById("urlList");
@@ -101,6 +124,7 @@ function displayUrls(urls) {
       const index = this.getAttribute("data-index");
       urls.splice(index, 1);
       chrome.storage.sync.set({ urls: urls }, function () {
+        console.log("URL deleted, remaining URLs:", urls); // Debug log
         displayUrls(urls);
       });
     });

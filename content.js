@@ -1,3 +1,5 @@
+console.log("ReConsider: Content script loaded");
+
 chrome.storage.sync.get(
   ["urls", "difficulty", "customPhrases"],
   function (data) {
@@ -5,7 +7,14 @@ chrome.storage.sync.get(
     const cleanCurrentUrl = currentUrl.replace(/^www\./i, "");
     const urls = data.urls || [];
 
-    if (urls.some((url) => cleanCurrentUrl.includes(url))) {
+    console.log("ReConsider: Current URL:", currentUrl);
+    console.log("ReConsider: Clean URL:", cleanCurrentUrl);
+    console.log("ReConsider: Blocked URLs:", urls);
+
+    // Check if any of the blocked URLs match the current URL
+    const matchingUrl = urls.find((url) => cleanCurrentUrl.includes(url));
+    if (matchingUrl) {
+      console.log("ReConsider: URL match found:", matchingUrl);
       const difficulty = data.difficulty || 5;
       const customPhrases = data.customPhrases || [];
 
@@ -16,6 +25,8 @@ chrome.storage.sync.get(
 
       const phraseData = getRandomPhrase(difficulty);
       createOverlay(phraseData);
+    } else {
+      console.log("ReConsider: No URL match found");
     }
   }
 );

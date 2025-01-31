@@ -5,7 +5,8 @@
   "description": "ReConsider before visiting certain websites",
   "permissions": ["storage", "webNavigation"],
   "action": {
-    "default_popup": "popup.html"
+    "default_popup": "popup.html",
+    "default_icon": "icon.svg"
   },
   "content_scripts": [
     {
@@ -15,7 +16,7 @@
     }
   ],
   "icons": {
-    "48": "icon48.png",
-    "128": "icon128.png"
+    "48": "icon.svg",
+    "128": "icon.svg"
   }
 }

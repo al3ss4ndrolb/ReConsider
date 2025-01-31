@@ -1,39 +1,49 @@
 console.log("ReConsider: Content script loaded");
 
-// Run immediately instead of waiting for DOMContentLoaded
-chrome.storage.sync.get(
-  ["urls", "difficulty", "customPhrases"],
-  function (data) {
-    const currentUrl = window.location.hostname.toLowerCase();
-    const cleanCurrentUrl = currentUrl.replace(/^www\./i, "");
-    const urls = data.urls || [];
+function checkAndCreateOverlay() {
+  chrome.storage.sync.get(
+    ["urls", "difficulty", "customPhrases"],
+    function (data) {
+      const currentUrl = window.location.hostname.toLowerCase();
+      const cleanCurrentUrl = currentUrl.replace(/^www\./i, "");
+      const urls = data.urls || [];
 
-    console.log("ReConsider: Current URL:", currentUrl);
-    console.log("ReConsider: Clean URL:", cleanCurrentUrl);
-    console.log("ReConsider: Blocked URLs:", urls);
+      console.log("ReConsider: Current URL:", currentUrl);
+      console.log("ReConsider: Clean URL:", cleanCurrentUrl);
+      console.log("ReConsider: Blocked URLs:", urls);
 
-    // Check if any of the blocked URLs match the current URL
-    const matchingUrl = urls.find((url) => {
-      const cleanBlockedUrl = url.toLowerCase().trim();
-      console.log("ReConsider: Checking against:", cleanBlockedUrl);
-      return (
-        cleanCurrentUrl.includes(cleanBlockedUrl) ||
-        cleanBlockedUrl.includes(cleanCurrentUrl)
-      );
-    });
+      // Check if any of the blocked URLs match the current URL
+      const matchingUrl = urls.find((url) => {
+        const cleanBlockedUrl = url.toLowerCase().trim();
+        console.log("ReConsider: Checking against:", cleanBlockedUrl);
+        return cleanCurrentUrl.includes(cleanBlockedUrl);
+      });
 
-    if (matchingUrl) {
-      console.log("ReConsider: URL match found:", matchingUrl);
-      const difficulty = data.difficulty || 3;
-      const customPhrases = data.customPhrases || [];
+      if (matchingUrl) {
+        console.log("ReConsider: URL match found:", matchingUrl);
+        const difficulty = data.difficulty || 3;
+        const phraseData = getRandomPhrase(difficulty);
 
-      const phraseData = getRandomPhrase(difficulty);
-      createOverlay(phraseData);
-    } else {
-      console.log("ReConsider: No URL match found");
+        // Only create overlay if it doesn't exist yet
+        if (!document.querySelector(".reconsider-overlay")) {
+          createOverlay(phraseData);
+        }
+      } else {
+        console.log("ReConsider: No URL match found");
+      }
     }
-  }
-);
+  );
+}
+
+// Try immediately
+checkAndCreateOverlay();
+
+// Also try when DOM is loaded (as backup)
+if (document.readyState === "loading") {
+  document.addEventListener("DOMContentLoaded", checkAndCreateOverlay);
+} else {
+  checkAndCreateOverlay();
+}
 
 function createOverlay(phraseData) {
   const overlay = document.createElement("div");
@@ -49,8 +59,8 @@ function createOverlay(phraseData) {
     </div>
     <div class="reconsider-body">
       <div class="phrase-container">
-        <p class="phrase-instruction">${phraseData.display}</p>
-        <div class="phrase-highlight">${phraseData.original}</div>
+        <p class="phrase-instruction">Type this phrase exactly as shown:</p>
+        <div class="phrase-highlight">${phraseData.verify}</div>
       </div>
       <input type="text" id="reconsider-input" placeholder="Type to continue..." autocomplete="off" />
       <button id="reconsider-submit">Continue</button>

@@ -127,8 +127,7 @@
         margin-top: 0.5rem;
         padding: 0;
         position: relative;
-        width: calc(100% - 8px);
-        margin-left: 4px;
+        width: 100%;
       }
 
       .difficulty-labels span {
@@ -136,15 +135,17 @@
         color: #64748b;
         position: relative;
         text-align: center;
-        width: 20%;
+        transform: translateX(-50%);
       }
 
       .difficulty-labels span:first-child {
         transform: translateX(0);
+        text-align: left;
       }
 
       .difficulty-labels span:last-child {
         transform: translateX(-100%);
+        text-align: right;
       }
 
       .help-text {
@@ -154,8 +155,8 @@
       }
 
       input[type="range"] {
-        width: calc(100% - 8px);
-        margin: 1rem 4px 0.5rem 4px;
+        width: 100%;
+        margin: 1rem 0 0.5rem 0;
         height: 6px;
         background: #e2e8f0;
         border-radius: 3px;

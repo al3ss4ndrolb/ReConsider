@@ -178,11 +178,18 @@
 
     <div class="divider"></div>
 
-    <div class="slider-container">
-      <label for="difficulty">Challenge Level</label>
-      <input type="range" id="difficulty" min="1" max="10" step="2" value="5" />
-      <div class="difficulty-value">Moderate (5)</div>
-      <p style="font-size: 0.875rem; color: #64748b; margin-top: 0.5rem">
+    <div class="settings-section">
+      <h3>Challenge Level</h3>
+      <input type="range" id="difficulty" min="1" max="5" step="1" value="3" />
+      <div class="difficulty-labels">
+        <span>Basic</span>
+        <span>Light</span>
+        <span>Moderate</span>
+        <span>Challenging</span>
+        <span>Complex</span>
+      </div>
+      <div class="difficulty-value">Moderate (6-7 words)</div>
+      <p class="help-text">
         Higher levels include longer phrases and special characters
       </p>
     </div>

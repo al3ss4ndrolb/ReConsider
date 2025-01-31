@@ -80,11 +80,8 @@ function createOverlay(phraseData) {
       }, 300);
     } else {
       input.classList.add("error");
-      input.value = "";
-      input.placeholder = "Try again...";
       setTimeout(() => {
         input.classList.remove("error");
-        input.placeholder = "Type to continue...";
       }, 500);
     }
   }

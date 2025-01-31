@@ -1,13 +1,27 @@
-chrome.storage.sync.get(["urls", "phrase"], function (data) {
-  const currentUrl = window.location.hostname;
-  const urls = data.urls || [];
+chrome.storage.sync.get(
+  ["urls", "difficulty", "phraseTypes", "customPhrases"],
+  function (data) {
+    const currentUrl = window.location.hostname;
+    const urls = data.urls || [];
 
-  if (urls.some((url) => currentUrl.includes(url))) {
-    createOverlay(data.phrase || "Do I really want to do this?");
+    if (urls.some((url) => currentUrl.includes(url))) {
+      // Get available phrases
+      let availableTypes = data.phraseTypes || ["natural"];
+      const difficulty = data.difficulty || 5;
+      const customPhrases = data.customPhrases || [];
+
+      // Add custom phrases to natural language type if they exist
+      if (customPhrases.length > 0) {
+        DEFAULT_PHRASES.natural = DEFAULT_PHRASES.natural.concat(customPhrases);
+      }
+
+      const phraseData = getRandomPhrase(availableTypes, difficulty);
+      createOverlay(phraseData);
+    }
   }
-});
+);
 
-function createOverlay(phrase) {
+function createOverlay(phraseData) {
   const overlay = document.createElement("div");
   overlay.className = "reconsider-overlay";
 
@@ -15,10 +29,18 @@ function createOverlay(phrase) {
   content.className = "reconsider-content";
 
   content.innerHTML = `
-    <h2>Take a Moment to ReConsider</h2>
-    <p>Type this phrase to continue: <strong>${phrase}</strong></p>
-    <input type="text" id="reconsider-input" placeholder="Type the phrase" autocomplete="off" />
-    <button id="reconsider-submit">Continue</button>
+    <div class="reconsider-header">
+      <h2>Take a Moment</h2>
+      <p class="subtitle">Before continuing to this website, let's pause and reflect.</p>
+    </div>
+    <div class="reconsider-body">
+      <div class="phrase-container">
+        <p class="phrase-instruction">${phraseData.display}</p>
+        <div class="phrase-highlight">${phraseData.original}</div>
+      </div>
+      <input type="text" id="reconsider-input" placeholder="Type to continue..." autocomplete="off" />
+      <button id="reconsider-submit">Continue</button>
+    </div>
   `;
 
   overlay.appendChild(content);
@@ -29,16 +51,19 @@ function createOverlay(phrase) {
   const button = document.getElementById("reconsider-submit");
 
   function checkPhrase() {
-    if (input.value === phrase) {
-      overlay.remove();
-      document.body.style.overflow = "";
+    if (input.value === phraseData.verify) {
+      overlay.classList.add("fade-out");
+      setTimeout(() => {
+        overlay.remove();
+        document.body.style.overflow = "";
+      }, 300);
     } else {
       input.classList.add("error");
       input.value = "";
       input.placeholder = "Try again...";
       setTimeout(() => {
         input.classList.remove("error");
-        input.placeholder = "Type the phrase";
+        input.placeholder = "Type to continue...";
       }, 500);
     }
   }

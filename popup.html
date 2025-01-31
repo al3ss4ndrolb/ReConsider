@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>ReConsider Settings</title>
+    <style>
+      body {
+        width: 300px;
+        padding: 10px;
+        font-family: Arial, sans-serif;
+      }
+      .url-list {
+        margin: 10px 0;
+      }
+      .url-item {
+        display: flex;
+        justify-content: space-between;
+        margin: 5px 0;
+      }
+      input[type="text"] {
+        width: 100%;
+        margin: 5px 0;
+        padding: 5px;
+      }
+      button {
+        background: #4caf50;
+        color: white;
+        border: none;
+        padding: 5px 10px;
+        cursor: pointer;
+      }
+      .delete-btn {
+        background: #f44336;
+        margin-left: 5px;
+      }
+    </style>
+  </head>
+  <body>
+    <h2>ReConsider Settings</h2>
+
+    <div>
+      <input
+        type="text"
+        id="newUrl"
+        placeholder="Enter website URL (e.g., facebook.com)"
+      />
+      <button id="addUrl">Add URL</button>
+    </div>
+
+    <div class="url-list" id="urlList">
+      <!-- URLs will be listed here -->
+    </div>
+
+    <div>
+      <input
+        type="text"
+        id="verificationPhrase"
+        placeholder="Verification phrase"
+      />
+      <button id="savePhrase">Save Phrase</button>
+    </div>
+
+    <script src="popup.js"></script>
+  </body>
+</html>

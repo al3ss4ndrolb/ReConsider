@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", function () {
   // Load saved settings
   chrome.storage.sync.get(
-    ["urls", "difficulty", "phraseTypes", "customPhrases"],
+    ["urls", "difficulty", "customPhrases"],
     function (data) {
       if (data.urls) {
         displayUrls(data.urls);
@@ -10,30 +10,35 @@ document.addEventListener("DOMContentLoaded", function () {
         document.getElementById("difficulty").value = data.difficulty;
         updateDifficultyLabel(data.difficulty);
       }
-      if (data.phraseTypes) {
-        data.phraseTypes.forEach((type) => {
-          document.querySelector(`input[value="${type}"]`).checked = true;
-        });
-      } else {
-        // Default to natural language if no settings saved
-        chrome.storage.sync.set({ phraseTypes: ["natural"] });
-      }
     }
   );
 
   // Add URL button handler
   document.getElementById("addUrl").addEventListener("click", function () {
     const urlInput = document.getElementById("newUrl");
-    const url = urlInput.value.trim();
+    let url = urlInput.value.trim();
 
     if (url) {
+      // Clean up the URL
+      url = url.toLowerCase();
+      url = url.replace(/^(?:https?:\/\/)?(?:www\.)?/i, ""); // Remove protocol and www
+      url = url.split("/")[0]; // Remove paths
+
       chrome.storage.sync.get(["urls"], function (data) {
         const urls = data.urls || [];
-        urls.push(url);
-        chrome.storage.sync.set({ urls: urls }, function () {
-          displayUrls(urls);
+        if (!urls.includes(url)) {
+          urls.push(url);
+          chrome.storage.sync.set({ urls: urls }, function () {
+            displayUrls(urls);
+            urlInput.value = "";
+          });
+        } else {
           urlInput.value = "";
-        });
+          urlInput.placeholder = "URL already added!";
+          setTimeout(() => {
+            urlInput.placeholder = "Enter website (e.g., youtube.com)";
+          }, 2000);
+        }
       });
     }
   });
@@ -47,23 +52,6 @@ document.addEventListener("DOMContentLoaded", function () {
     chrome.storage.sync.set({ difficulty: parseInt(this.value) });
   });
 
-  // Phrase type checkboxes handler
-  document.querySelectorAll('input[name="phraseType"]').forEach((checkbox) => {
-    checkbox.addEventListener("change", function () {
-      const selectedTypes = Array.from(
-        document.querySelectorAll('input[name="phraseType"]:checked')
-      ).map((cb) => cb.value);
-
-      // Ensure at least one type is selected
-      if (selectedTypes.length === 0) {
-        this.checked = true;
-        return;
-      }
-
-      chrome.storage.sync.set({ phraseTypes: selectedTypes });
-    });
-  });
-
   // Add custom phrase handler
   document.getElementById("addPhrase").addEventListener("click", function () {
     const phraseInput = document.getElementById("customPhrase");
@@ -72,15 +60,22 @@ document.addEventListener("DOMContentLoaded", function () {
     if (phrase) {
       chrome.storage.sync.get(["customPhrases"], function (data) {
         const phrases = data.customPhrases || [];
-        phrases.push(phrase);
-        chrome.storage.sync.set({ customPhrases: phrases }, function () {
+        if (!phrases.includes(phrase)) {
+          phrases.push(phrase);
+          chrome.storage.sync.set({ customPhrases: phrases }, function () {
+            phraseInput.value = "";
+            phraseInput.placeholder = "Phrase added successfully!";
+            setTimeout(() => {
+              phraseInput.placeholder = "Add your own phrase (optional)";
+            }, 2000);
+          });
+        } else {
           phraseInput.value = "";
-          // Show success message or update UI
-          phraseInput.placeholder = "Phrase added successfully!";
+          phraseInput.placeholder = "Phrase already exists!";
           setTimeout(() => {
             phraseInput.placeholder = "Add your own phrase (optional)";
           }, 2000);
-        });
+        }
       });
     }
   });

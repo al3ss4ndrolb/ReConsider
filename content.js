@@ -1,21 +1,20 @@
 chrome.storage.sync.get(
-  ["urls", "difficulty", "phraseTypes", "customPhrases"],
+  ["urls", "difficulty", "customPhrases"],
   function (data) {
-    const currentUrl = window.location.hostname;
+    const currentUrl = window.location.hostname.toLowerCase();
+    const cleanCurrentUrl = currentUrl.replace(/^www\./i, "");
     const urls = data.urls || [];
 
-    if (urls.some((url) => currentUrl.includes(url))) {
-      // Get available phrases
-      let availableTypes = data.phraseTypes || ["natural"];
+    if (urls.some((url) => cleanCurrentUrl.includes(url))) {
       const difficulty = data.difficulty || 5;
       const customPhrases = data.customPhrases || [];
 
-      // Add custom phrases to natural language type if they exist
+      // Add custom phrases if they exist
       if (customPhrases.length > 0) {
-        DEFAULT_PHRASES.natural = DEFAULT_PHRASES.natural.concat(customPhrases);
+        PHRASES.push(...customPhrases);
       }
 
-      const phraseData = getRandomPhrase(availableTypes, difficulty);
+      const phraseData = getRandomPhrase(difficulty);
       createOverlay(phraseData);
     }
   }

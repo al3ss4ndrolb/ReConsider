@@ -69,12 +69,17 @@
         cursor: pointer;
         font-size: 0.875rem;
         font-weight: 500;
-        transition: background-color 0.15s ease;
+        transition: all 0.15s ease;
         width: 100%;
       }
 
       button:hover {
         background: #2563eb;
+        transform: translateY(-1px);
+      }
+
+      button:active {
+        transform: translateY(0);
       }
 
       .delete-btn {
@@ -92,21 +97,6 @@
         height: 1px;
         background: #e2e8f0;
         margin: 1.5rem 0;
-      }
-
-      .checkbox-group {
-        margin: 1rem 0;
-      }
-
-      .checkbox-label {
-        display: flex;
-        align-items: center;
-        margin: 0.5rem 0;
-        cursor: pointer;
-      }
-
-      .checkbox-label input[type="checkbox"] {
-        margin-right: 0.5rem;
       }
 
       .slider-container {
@@ -177,7 +167,7 @@
       <input
         type="text"
         id="newUrl"
-        placeholder="Enter website URL (e.g., facebook.com)"
+        placeholder="Enter website (e.g., youtube.com)"
       />
       <button id="addUrl">Add Website</button>
     </div>
@@ -189,25 +179,12 @@
     <div class="divider"></div>
 
     <div class="slider-container">
-      <label for="difficulty">Phrase Difficulty</label>
+      <label for="difficulty">Challenge Level</label>
       <input type="range" id="difficulty" min="1" max="10" step="2" value="5" />
       <div class="difficulty-value">Moderate (5)</div>
-    </div>
-
-    <div class="checkbox-group">
-      <h3>Phrase Types</h3>
-      <label class="checkbox-label">
-        <input type="checkbox" name="phraseType" value="natural" checked />
-        Natural Language
-      </label>
-      <label class="checkbox-label">
-        <input type="checkbox" name="phraseType" value="camelCase" />
-        camelCase
-      </label>
-      <label class="checkbox-label">
-        <input type="checkbox" name="phraseType" value="kebabCase" />
-        kebab-case
-      </label>
+      <p style="font-size: 0.875rem; color: #64748b; margin-top: 0.5rem">
+        Higher levels include longer phrases and special characters
+      </p>
     </div>
 
     <div class="divider"></div>

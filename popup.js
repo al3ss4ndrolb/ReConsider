@@ -113,7 +113,12 @@ function displayUrls(urls) {
     div.className = "url-item";
     div.innerHTML = `
       <span>${url}</span>
-      <button class="delete-btn" data-index="${index}">×</button>
+      <button class="delete-btn" data-index="${index}" title="Remove website">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="18" y1="6" x2="6" y2="18"></line>
+          <line x1="6" y1="6" x2="18" y2="18"></line>
+        </svg>
+      </button>
     `;
     urlList.appendChild(div);
   });
@@ -121,11 +126,14 @@ function displayUrls(urls) {
   // Add delete button handlers
   document.querySelectorAll(".delete-btn").forEach((button) => {
     button.addEventListener("click", function () {
-      const index = this.getAttribute("data-index");
-      urls.splice(index, 1);
-      chrome.storage.sync.set({ urls: urls }, function () {
-        console.log("URL deleted, remaining URLs:", urls); // Debug log
-        displayUrls(urls);
+      const index = parseInt(this.getAttribute("data-index"));
+      chrome.storage.sync.get(["urls"], function (data) {
+        const currentUrls = data.urls || [];
+        currentUrls.splice(index, 1);
+        chrome.storage.sync.set({ urls: currentUrls }, function () {
+          console.log("ReConsider: URL deleted, remaining URLs:", currentUrls);
+          displayUrls(currentUrls);
+        });
       });
     });
   });

@@ -1,35 +1,46 @@
 console.log("ReConsider: Content script loaded");
 
-chrome.storage.sync.get(
-  ["urls", "difficulty", "customPhrases"],
-  function (data) {
-    const currentUrl = window.location.hostname.toLowerCase();
-    const cleanCurrentUrl = currentUrl.replace(/^www\./i, "");
-    const urls = data.urls || [];
+// Wait for the document to be ready
+document.addEventListener("DOMContentLoaded", function () {
+  chrome.storage.sync.get(
+    ["urls", "difficulty", "customPhrases"],
+    function (data) {
+      const currentUrl = window.location.hostname.toLowerCase();
+      const cleanCurrentUrl = currentUrl.replace(/^www\./i, "");
+      const urls = data.urls || [];
 
-    console.log("ReConsider: Current URL:", currentUrl);
-    console.log("ReConsider: Clean URL:", cleanCurrentUrl);
-    console.log("ReConsider: Blocked URLs:", urls);
+      console.log("ReConsider: Current URL:", currentUrl);
+      console.log("ReConsider: Clean URL:", cleanCurrentUrl);
+      console.log("ReConsider: Blocked URLs:", urls);
 
-    // Check if any of the blocked URLs match the current URL
-    const matchingUrl = urls.find((url) => cleanCurrentUrl.includes(url));
-    if (matchingUrl) {
-      console.log("ReConsider: URL match found:", matchingUrl);
-      const difficulty = data.difficulty || 5;
-      const customPhrases = data.customPhrases || [];
+      // Check if any of the blocked URLs match the current URL
+      const matchingUrl = urls.find((url) => {
+        const cleanBlockedUrl = url.toLowerCase().trim();
+        console.log("ReConsider: Checking against:", cleanBlockedUrl);
+        return (
+          cleanCurrentUrl.includes(cleanBlockedUrl) ||
+          cleanBlockedUrl.includes(cleanCurrentUrl)
+        );
+      });
 
-      // Add custom phrases if they exist
-      if (customPhrases.length > 0) {
-        PHRASES.push(...customPhrases);
+      if (matchingUrl) {
+        console.log("ReConsider: URL match found:", matchingUrl);
+        const difficulty = data.difficulty || 5;
+        const customPhrases = data.customPhrases || [];
+
+        // Add custom phrases if they exist
+        if (customPhrases.length > 0) {
+          PHRASES.push(...customPhrases);
+        }
+
+        const phraseData = getRandomPhrase(difficulty);
+        createOverlay(phraseData);
+      } else {
+        console.log("ReConsider: No URL match found");
       }
-
-      const phraseData = getRandomPhrase(difficulty);
-      createOverlay(phraseData);
-    } else {
-      console.log("ReConsider: No URL match found");
     }
-  }
-);
+  );
+});
 
 function createOverlay(phraseData) {
   const overlay = document.createElement("div");

@@ -17,7 +17,7 @@ function createOverlay(phrase) {
   content.innerHTML = `
     <h2>Take a Moment to ReConsider</h2>
     <p>Type this phrase to continue: <strong>${phrase}</strong></p>
-    <input type="text" id="reconsider-input" placeholder="Type the phrase">
+    <input type="text" id="reconsider-input" placeholder="Type the phrase" autocomplete="off" />
     <button id="reconsider-submit">Continue</button>
   `;
 
@@ -25,24 +25,31 @@ function createOverlay(phrase) {
   document.body.appendChild(overlay);
   document.body.style.overflow = "hidden";
 
-  document
-    .getElementById("reconsider-submit")
-    .addEventListener("click", checkPhrase);
-  document
-    .getElementById("reconsider-input")
-    .addEventListener("keypress", function (e) {
-      if (e.key === "Enter") {
-        checkPhrase();
-      }
-    });
+  const input = document.getElementById("reconsider-input");
+  const button = document.getElementById("reconsider-submit");
 
   function checkPhrase() {
-    const input = document.getElementById("reconsider-input").value;
-    if (input === phrase) {
+    if (input.value === phrase) {
       overlay.remove();
       document.body.style.overflow = "";
     } else {
-      document.getElementById("reconsider-input").style.borderColor = "red";
+      input.classList.add("error");
+      input.value = "";
+      input.placeholder = "Try again...";
+      setTimeout(() => {
+        input.classList.remove("error");
+        input.placeholder = "Type the phrase";
+      }, 500);
     }
   }
+
+  button.addEventListener("click", checkPhrase);
+  input.addEventListener("keypress", function (e) {
+    if (e.key === "Enter") {
+      checkPhrase();
+    }
+  });
+
+  // Focus the input field
+  input.focus();
 }

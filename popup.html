@@ -110,6 +110,44 @@
         font-weight: 500;
       }
 
+      .settings-section {
+        margin: 1.5rem 0;
+      }
+
+      .settings-section h3 {
+        margin: 0 0 1rem 0;
+        font-size: 1rem;
+        color: #1e293b;
+        font-weight: 600;
+      }
+
+      .difficulty-labels {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 0.5rem;
+        padding: 0 2px;
+      }
+
+      .difficulty-labels span {
+        font-size: 0.75rem;
+        color: #64748b;
+        transform: translateX(-50%);
+      }
+
+      .difficulty-labels span:first-child {
+        transform: translateX(0);
+      }
+
+      .difficulty-labels span:last-child {
+        transform: translateX(-100%);
+      }
+
+      .help-text {
+        font-size: 0.875rem;
+        color: #64748b;
+        margin-top: 0.5rem;
+      }
+
       input[type="range"] {
         width: 100%;
         height: 6px;
@@ -117,6 +155,7 @@
         border-radius: 3px;
         outline: none;
         -webkit-appearance: none;
+        margin: 1rem 0 0.5rem 0;
       }
 
       input[type="range"]::-webkit-slider-thumb {
@@ -131,13 +170,6 @@
 
       input[type="range"]::-webkit-slider-thumb:hover {
         background: #2563eb;
-      }
-
-      .difficulty-value {
-        text-align: center;
-        font-size: 0.875rem;
-        color: #64748b;
-        margin-top: 0.5rem;
       }
 
       /* Custom scrollbar */
@@ -157,6 +189,17 @@
 
       ::-webkit-scrollbar-thumb:hover {
         background: #94a3b8;
+      }
+
+      .difficulty-value {
+        text-align: center;
+        font-size: 0.875rem;
+        color: #1e293b;
+        font-weight: 500;
+        margin: 0.75rem 0;
+        padding: 0.5rem;
+        background: #f1f5f9;
+        border-radius: 0.5rem;
       }
     </style>
   </head>

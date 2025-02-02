@@ -104,6 +104,8 @@
   margin: 0 !important;
   word-break: break-word !important;
   line-height: 1.4 !important;
+  user-select: none;
+  -webkit-user-select: none;
 }
 
 .reconsider-content input {

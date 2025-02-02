@@ -1,37 +1,37 @@
 .reconsider-overlay {
-  position: fixed !important;
-  top: 0 !important;
-  left: 0 !important;
-  width: 100vw !important;
-  height: 100vh !important;
-  background: rgba(15, 23, 42, 0.75) !important;
-  backdrop-filter: blur(8px) !important;
-  -webkit-backdrop-filter: blur(8px) !important;
-  z-index: 2147483647 !important;
-  display: flex !important;
-  justify-content: center !important;
-  align-items: center !important;
-  padding: 1rem !important;
-  box-sizing: border-box !important;
-  opacity: 1 !important;
-  transition: opacity 0.3s ease !important;
-  font-size: 16px !important;
-  line-height: 1.5 !important;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(15, 23, 42, 0.75);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  z-index: 2147483647;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
+  box-sizing: border-box;
+  opacity: 1;
+  transition: opacity 0.3s ease;
+  font-size: 16px;
+  line-height: 1.5;
   font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-    Oxygen, Ubuntu, Cantarell, sans-serif !important;
-  color: #0f172a !important;
-  margin: 0 !important;
-  border: none !important;
+    Oxygen, Ubuntu, Cantarell, sans-serif;
+  color: #0f172a;
+  margin: 0;
+  border: none;
 }
 
 .reconsider-overlay * {
-  box-sizing: border-box !important;
-  margin: 0 !important;
-  padding: 0 !important;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
   font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-    Oxygen, Ubuntu, Cantarell, sans-serif !important;
-  line-height: 1.5 !important;
-  border: none !important;
+    Oxygen, Ubuntu, Cantarell, sans-serif;
+  line-height: 1.5;
+  border: none;
 }
 
 .reconsider-overlay.fade-out {
@@ -39,129 +39,129 @@
 }
 
 .reconsider-content {
-  background: white !important;
-  padding: 2.5rem !important;
-  border-radius: 1.5rem !important;
-  text-align: center !important;
-  width: min(600px, 90vw) !important;
-  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25) !important;
-  margin: 0 !important;
-  display: flex !important;
-  flex-direction: column !important;
-  gap: 2rem !important;
+  background: white;
+  padding: 2.5rem;
+  border-radius: 1.5rem;
+  text-align: center;
+  width: min(600px, 90vw);
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
 }
 
 .reconsider-header {
-  margin: 0 0 1rem 0 !important;
+  margin: 0 0 1rem 0;
 }
 
 .reconsider-header h2 {
-  color: #1e293b !important;
-  font-size: 2rem !important;
-  font-weight: 700 !important;
-  margin: 0 0 1rem 0 !important;
-  padding: 0 !important;
-  line-height: 1.2 !important;
+  color: #1e293b;
+  font-size: 2rem;
+  font-weight: 700;
+  margin: 0 0 1rem 0;
+  padding: 0;
+  line-height: 1.2;
 }
 
 .reconsider-header .subtitle {
-  color: #64748b !important;
-  font-size: 1.125rem !important;
-  margin: 0 !important;
-  padding: 0 !important;
-  line-height: 1.5 !important;
+  color: #64748b;
+  font-size: 1.125rem;
+  margin: 0;
+  padding: 0;
+  line-height: 1.5;
 }
 
 .reconsider-body {
-  display: flex !important;
-  flex-direction: column !important;
-  gap: 1.5rem !important;
-  width: 100% !important;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  width: 100%;
 }
 
 .phrase-container {
-  background: #f8fafc !important;
-  padding: 2rem !important;
-  border-radius: 1rem !important;
-  margin: 0 !important;
+  background: #f8fafc;
+  padding: 2rem;
+  border-radius: 1rem;
+  margin: 0;
 }
 
 .phrase-instruction {
-  color: #64748b !important;
-  font-size: 1.125rem !important;
-  margin: 0 0 1rem 0 !important;
-  line-height: 1.5 !important;
+  color: #64748b;
+  font-size: 1.125rem;
+  margin: 0 0 1rem 0;
+  line-height: 1.5;
 }
 
 .phrase-highlight {
-  color: #0f172a !important;
-  font-size: 1.5rem !important;
-  font-weight: 500 !important;
-  padding: 1.25rem !important;
-  background: #f1f5f9 !important;
-  border-radius: 0.75rem !important;
-  border: 2px solid #e2e8f0 !important;
-  margin: 0 !important;
-  word-break: break-word !important;
-  line-height: 1.4 !important;
+  color: #0f172a;
+  font-size: 1.5rem;
+  font-weight: 500;
+  padding: 1.25rem;
+  background: #f1f5f9;
+  border-radius: 0.75rem;
+  border: 2px solid #e2e8f0;
+  margin: 0;
+  word-break: break-word;
+  line-height: 1.4;
   user-select: none;
   -webkit-user-select: none;
 }
 
 .reconsider-content input {
-  width: 100% !important;
-  padding: 1rem 1.25rem !important;
-  margin: 0 !important;
-  border: 2px solid #e2e8f0 !important;
-  border-radius: 0.75rem !important;
-  font-size: 1.25rem !important;
-  transition: all 0.15s ease !important;
-  background: #f8fafc !important;
-  line-height: 1.5 !important;
-  color: #0f172a !important;
-  height: auto !important;
-  min-height: 3.5rem !important;
+  width: 100%;
+  padding: 1rem 1.25rem;
+  margin: 0;
+  border: 2px solid #e2e8f0;
+  border-radius: 0.75rem;
+  font-size: 1.25rem;
+  transition: all 0.15s ease;
+  background: #f8fafc;
+  line-height: 1.5;
+  color: #0f172a;
+  height: auto;
+  min-height: 3.5rem;
 }
 
 .reconsider-content input:focus {
-  outline: none !important;
-  border-color: #3b82f6 !important;
-  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1) !important;
-  background: white !important;
+  outline: none;
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+  background: white;
 }
 
 .reconsider-content input.error {
-  animation: shake 0.5s cubic-bezier(0.36, 0.07, 0.19, 0.97) both !important;
+  animation: shake 0.5s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
 }
 
 .reconsider-content button {
-  background: #3b82f6 !important;
-  color: white !important;
-  border: none !important;
-  padding: 1rem 1.5rem !important;
-  border-radius: 0.75rem !important;
-  font-size: 1.25rem !important;
-  font-weight: 500 !important;
-  cursor: pointer !important;
-  transition: all 0.15s ease !important;
-  width: 100% !important;
-  margin: 0 !important;
-  height: auto !important;
-  min-height: 3.5rem !important;
-  display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  text-transform: none !important;
-  line-height: 1.5 !important;
+  background: #3b82f6;
+  color: white;
+  border: none;
+  padding: 1rem 1.5rem;
+  border-radius: 0.75rem;
+  font-size: 1.25rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  width: 100%;
+  margin: 0;
+  height: auto;
+  min-height: 3.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-transform: none;
+  line-height: 1.5;
 }
 
 .reconsider-content button:hover {
-  background: #2563eb !important;
-  transform: translateY(-1px) !important;
+  background: #2563eb;
+  transform: translateY(-1px);
 }
 
 .reconsider-content button:active {
-  transform: translateY(0) !important;
+  transform: translateY(0);
 }
 
 @keyframes shake {
@@ -186,22 +186,22 @@
 
 @media (max-width: 640px) {
   .reconsider-content {
-    padding: 1.5rem !important;
+    padding: 1.5rem;
   }
 
   .reconsider-header h2 {
-    font-size: 1.75rem !important;
+    font-size: 1.75rem;
   }
 
   .phrase-highlight {
-    font-size: 1.25rem !important;
-    padding: 1rem !important;
+    font-size: 1.25rem;
+    padding: 1rem;
   }
 
   .reconsider-content input,
   .reconsider-content button {
-    font-size: 1.125rem !important;
-    padding: 0.875rem 1rem !important;
+    font-size: 1.125rem;
+    padding: 0.875rem 1rem;
   }
 }
 

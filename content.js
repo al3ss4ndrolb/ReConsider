@@ -75,7 +75,7 @@ function createOverlay(phraseData) {
   const button = document.getElementById("reconsider-submit");
 
   function checkPhrase() {
-    if (input.value === phraseData.verify) {
+    if (input.value.trim() === phraseData.verify) {
       overlay.classList.add("fade-out");
       setTimeout(() => {
         overlay.remove();

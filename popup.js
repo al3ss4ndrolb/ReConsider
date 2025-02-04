@@ -142,11 +142,11 @@ function displayUrls(urls) {
 function updateDifficultyLabel(value) {
   const difficultyValue = document.querySelector(".difficulty-value");
   const labels = {
-    0: "Basic (2-3 words)",
-    1: "Light (4-5 words)",
-    2: "Moderate (6-7 words)",
-    3: "Hard (8-9 words)",
-    4: "Complex (10+ words)",
+    1: "Basic (2-3 words)",
+    2: "Light (4-5 words)",
+    3: "Moderate (6-7 words)",
+    4: "Hard (8-9 words)",
+    5: "Complex (10+ words)",
   };
-  difficultyValue.textContent = labels[value] || labels[2];
+  difficultyValue.textContent = labels[value] || labels[3];
 }

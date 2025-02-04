@@ -104,13 +104,24 @@ function getRandomPhrase(difficulty) {
   // Ensure difficulty is between 1 and 5
   difficulty = Math.max(1, Math.min(5, difficulty));
 
-  // Get phrases for the selected difficulty
-  const phrases = PHRASES[difficulty];
-  const phrase = phrases[Math.floor(Math.random() * phrases.length)];
+  return new Promise((resolve) => {
+    // Get custom phrases from storage
+    chrome.storage.sync.get(["customPhrases"], function (data) {
+      // Get default phrases for the selected difficulty
+      const defaultPhrases = PHRASES[difficulty];
 
-  return {
-    original: phrase,
-    display: "Type this phrase exactly as shown:",
-    verify: phrase,
-  };
+      // Combine default phrases with custom phrases (if any exist)
+      const customPhrases = data.customPhrases || [];
+      const allPhrases = [...defaultPhrases, ...customPhrases];
+
+      // Select a random phrase from the combined pool
+      const phrase = allPhrases[Math.floor(Math.random() * allPhrases.length)];
+
+      resolve({
+        original: phrase,
+        display: "Type this phrase exactly as shown:",
+        verify: phrase,
+      });
+    });
+  });
 }

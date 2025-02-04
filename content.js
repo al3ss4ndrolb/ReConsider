@@ -22,12 +22,12 @@ function checkAndCreateOverlay() {
       if (matchingUrl) {
         console.log("ReConsider: URL match found:", matchingUrl);
         const difficulty = data.difficulty || 3;
-        const phraseData = getRandomPhrase(difficulty);
-
-        // Only create overlay if it doesn't exist yet
-        if (!document.querySelector(".reconsider-overlay")) {
-          createOverlay(phraseData);
-        }
+        // Handle the Promise from getRandomPhrase
+        getRandomPhrase(difficulty).then((phraseData) => {
+          if (!document.querySelector(".reconsider-overlay")) {
+            createOverlay(phraseData);
+          }
+        });
       } else {
         console.log("ReConsider: No URL match found");
       }

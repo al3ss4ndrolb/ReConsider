@@ -5,7 +5,11 @@
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
-    "dev": "nodemon server.js"
+    "dev": "nodemon server.js",
+    "build:chrome": "cp manifest.chrome.json manifest.json",
+    "build:firefox": "cp manifest.firefox.json manifest.json",
+    "package:chrome": "zip -r reconsider-chrome.zip * -x manifest.firefox.json -x manifest.chrome.json -x *.zip",
+    "package:firefox": "zip -r reconsider-firefox.zip * -x manifest.firefox.json -x manifest.chrome.json -x *.zip"
   },
   "dependencies": {
     "cors": "^2.8.5",

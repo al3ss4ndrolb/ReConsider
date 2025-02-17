@@ -2,29 +2,37 @@
 <html>
   <head>
     <title>ReConsider Settings</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <style>
       body {
-        width: 320px;
-        padding: 1.5rem;
+        width: min(320px, 100vw - 2rem);
+        padding: 1rem;
         font-family: system-ui, -apple-system, sans-serif;
-        margin: 0;
+        margin: 0 auto;
         color: #334155;
+        box-sizing: border-box;
+      }
+
+      * {
+        box-sizing: border-box;
       }
 
       h2 {
-        margin: 0 0 1.5rem 0;
-        font-size: 1.25rem;
+        margin: 0 0 1.25rem 0;
+        font-size: clamp(1.1rem, 4vw, 1.25rem);
         color: #1e293b;
       }
 
       .input-group {
-        margin-bottom: 1.5rem;
+        margin-bottom: 1.25rem;
+        width: 100%;
       }
 
       .url-list {
         margin: 1rem 0;
-        max-height: 200px;
+        max-height: min(200px, 50vh);
         overflow-y: auto;
+        width: 100%;
       }
 
       .url-item {
@@ -36,13 +44,16 @@
         margin: 0.5rem 0;
         border-radius: 0.5rem;
         border: 1px solid #e2e8f0;
+        width: 100%;
+        gap: 0.5rem;
       }
 
       .url-item span {
         word-break: break-all;
         margin-right: 0.5rem;
-        font-size: 16px;
+        font-size: clamp(0.875rem, 3vw, 1rem);
         font-weight: 500;
+        flex: 1;
       }
 
       input[type="text"] {
@@ -51,9 +62,9 @@
         margin: 0.5rem 0;
         border: 1px solid #e2e8f0;
         border-radius: 0.5rem;
-        box-sizing: border-box;
-        font-size: 0.875rem;
+        font-size: clamp(0.875rem, 3vw, 1rem);
         transition: border-color 0.15s ease;
+        min-height: 44px; /* Mobile touch target */
       }
 
       input[type="text"]:focus {
@@ -69,15 +80,22 @@
         padding: 0.75rem 1rem;
         border-radius: 0.5rem;
         cursor: pointer;
-        font-size: 0.875rem;
+        font-size: clamp(0.875rem, 3vw, 1rem);
         font-weight: 500;
         transition: all 0.15s ease;
         width: 100%;
+        min-height: 44px; /* Mobile touch target */
       }
 
       button:hover {
         background: #2563eb;
         transform: translateY(-1px);
+      }
+
+      @media (hover: none) {
+        button:hover {
+          transform: none;
+        }
       }
 
       button:active {
@@ -87,8 +105,13 @@
       .delete-btn {
         background: #ef4444;
         padding: 0.5rem;
-        min-width: 2rem;
+        min-width: 44px; /* Mobile touch target */
         width: auto;
+        height: 44px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
       }
 
       .delete-btn:hover {
@@ -98,27 +121,18 @@
       .divider {
         height: 1px;
         background: #e2e8f0;
-        margin: 1.5rem 0;
-      }
-
-      .slider-container {
-        margin: 1.5rem 0;
-      }
-
-      .slider-container label {
-        display: block;
-        margin-bottom: 0.5rem;
-        color: #1e293b;
-        font-weight: 500;
+        margin: 1.25rem 0;
+        width: 100%;
       }
 
       .settings-section {
-        margin: 1.5rem 0;
+        margin: 1.25rem 0;
+        width: 100%;
       }
 
       .settings-section h3 {
         margin: 0 0 1rem 0;
-        font-size: 1rem;
+        font-size: clamp(0.9rem, 3vw, 1rem);
         color: #1e293b;
         font-weight: 600;
       }
@@ -129,37 +143,17 @@
         margin-top: 0.5rem;
         width: 100%;
         padding: 0;
+        gap: 0.25rem;
       }
 
       .difficulty-labels span {
-        font-size: 0.75rem;
+        font-size: clamp(0.7rem, 2.5vw, 0.75rem);
         color: #64748b;
         text-align: center;
-        position: relative;
-      }
-
-      .difficulty-labels span:first-child {
-        text-align: left;
-      }
-
-      .difficulty-labels span:last-child {
-        text-align: right;
-      }
-
-      .difficulty-labels span:nth-child(2) {
-        margin-left: -25px;
-      }
-
-      .difficulty-labels span:nth-child(4) {
-        margin-left: 25px;
-      }
-
-      .difficulty-labels span:nth-child(5) {
-        margin-left: 20px;
       }
 
       .help-text {
-        font-size: 0.875rem;
+        font-size: clamp(0.75rem, 2.5vw, 0.875rem);
         color: #64748b;
         margin-top: 0.5rem;
       }
@@ -173,58 +167,63 @@
         margin: 1rem 0 0.5rem 0;
       }
 
-      input[type="range"]::-webkit-slider-runnable-track {
-        width: 100%;
-        height: 6px;
-        background: #e2e8f0;
-        border-radius: 3px;
-        border: none;
-      }
-
       input[type="range"]::-webkit-slider-thumb {
         -webkit-appearance: none;
-        width: 18px;
-        height: 18px;
+        width: 24px;
+        height: 24px;
         background: #3b82f6;
         border-radius: 50%;
         cursor: pointer;
         transition: background-color 0.15s ease;
         border: none;
-        margin-top: -6px;
-      }
-
-      input[type="range"]::-webkit-slider-thumb:hover {
-        background: #2563eb;
-      }
-
-      /* Custom scrollbar */
-      ::-webkit-scrollbar {
-        width: 8px;
-      }
-
-      ::-webkit-scrollbar-track {
-        background: #f1f5f9;
-        border-radius: 4px;
-      }
-
-      ::-webkit-scrollbar-thumb {
-        background: #cbd5e1;
-        border-radius: 4px;
-      }
-
-      ::-webkit-scrollbar-thumb:hover {
-        background: #94a3b8;
+        margin-top: -9px;
       }
 
       .difficulty-value {
         text-align: center;
-        font-size: 0.875rem;
+        font-size: clamp(0.8rem, 3vw, 0.875rem);
         color: #1e293b;
         font-weight: 500;
         margin: 0.75rem 0;
         padding: 0.5rem;
         background: #f1f5f9;
         border-radius: 0.5rem;
+      }
+
+      .footer-links {
+        display: flex;
+        justify-content: center;
+        gap: 1rem;
+        flex-wrap: wrap;
+        margin: 1rem 0;
+      }
+
+      .footer-links a {
+        color: #3b82f6;
+        text-decoration: none;
+        font-weight: 500;
+        font-size: clamp(0.875rem, 3vw, 1rem);
+      }
+
+      footer p {
+        text-align: center;
+        font-size: clamp(0.75rem, 2.5vw, 0.875rem);
+        color: #64748b;
+        margin: 1rem 0;
+      }
+
+      @media (max-width: 320px) {
+        body {
+          padding: 0.75rem;
+        }
+
+        .url-item {
+          padding: 0.5rem;
+        }
+
+        .difficulty-labels {
+          font-size: 0.65rem;
+        }
       }
     </style>
   </head>
@@ -275,17 +274,13 @@
 
     <div class="divider"></div>
 
-    <p style="text-align: center">
-      <a
-        href="feedback.html"
-        target="_blank"
-        style="color: #3b82f6; text-decoration: none; font-weight: 500"
-        >Send feedback or feature request</a
-      >
-    </p>
+    <div class="footer-links">
+      <a href="feedback.html" target="_blank">Send Feedback</a>
+      <a href="privacy.html" target="_blank">Privacy Policy</a>
+    </div>
 
     <footer>
-      <p style="text-align: center; font-size: 0.875rem; color: #64748b">
+      <p>
         Made with &hearts; by
         <a href="https://github.com/al3ss4ndrolb">al3ss4ndrolb</a>
       </p>

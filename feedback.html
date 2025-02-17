@@ -2,14 +2,20 @@
 <html>
   <head>
     <title>ReConsider Feedback</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <style>
       body {
         font-family: system-ui, -apple-system, sans-serif;
         margin: 0;
-        padding: 5rem;
+        padding: clamp(1rem, 5vw, 5rem);
         color: #334155;
-        max-width: 600px;
+        max-width: min(600px, 100%);
         margin: 0 auto;
+        box-sizing: border-box;
+      }
+
+      * {
+        box-sizing: border-box;
       }
 
       .required::after {
@@ -20,12 +26,13 @@
 
       h2 {
         margin: 0 0 1.5rem 0;
-        font-size: 1.5rem;
+        font-size: clamp(1.25rem, 5vw, 1.5rem);
         color: #1e293b;
       }
 
       .form-group {
         margin-bottom: 1.5rem;
+        width: 100%;
       }
 
       label {
@@ -33,6 +40,7 @@
         margin-bottom: 0.5rem;
         color: #1e293b;
         font-weight: 500;
+        font-size: clamp(0.875rem, 3vw, 1rem);
       }
 
       input[type="text"],
@@ -42,14 +50,14 @@
         padding: 0.75rem;
         border: 1px solid #e2e8f0;
         border-radius: 0.5rem;
-        box-sizing: border-box;
-        font-size: 0.875rem;
+        font-size: clamp(0.875rem, 3vw, 1rem);
         transition: border-color 0.15s ease;
         font-family: inherit;
+        min-height: 44px;
       }
 
       textarea {
-        min-height: 150px;
+        min-height: min(150px, 30vh);
         resize: vertical;
       }
 
@@ -67,14 +75,28 @@
         padding: 0.75rem 1.5rem;
         border-radius: 0.5rem;
         cursor: pointer;
-        font-size: 0.875rem;
+        font-size: clamp(0.875rem, 3vw, 1rem);
         font-weight: 500;
         transition: all 0.15s ease;
+        min-height: 44px;
+        width: 100%;
+      }
+
+      @media (min-width: 480px) {
+        button {
+          width: auto;
+        }
       }
 
       button:hover {
         background: #2563eb;
         transform: translateY(-1px);
+      }
+
+      @media (hover: none) {
+        button:hover {
+          transform: none;
+        }
       }
 
       button:active {
@@ -87,6 +109,7 @@
         border-radius: 0.5rem;
         margin: 1rem 0;
         display: none;
+        font-size: clamp(0.875rem, 3vw, 1rem);
       }
 
       .success-message {
@@ -99,6 +122,23 @@
         background: #fee2e2;
         color: #991b1b;
         border: 1px solid #fecaca;
+      }
+
+      @media (max-width: 320px) {
+        body {
+          padding: 0.75rem;
+        }
+
+        .form-group {
+          margin-bottom: 1rem;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        textarea,
+        button {
+          padding: 0.5rem 0.75rem;
+        }
       }
     </style>
   </head>

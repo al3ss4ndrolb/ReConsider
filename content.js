@@ -52,27 +52,57 @@ function createOverlay(phraseData) {
   const content = document.createElement("div");
   content.className = "reconsider-content";
 
-  content.innerHTML = `
-    <div class="reconsider-header">
-      <h2>Take a Moment</h2>
-      <p class="subtitle">Before continuing to this website, let's pause and reflect.</p>
-    </div>
-    <div class="reconsider-body">
-      <div class="phrase-container">
-        <p class="phrase-instruction">Type this phrase exactly as shown:</p>
-        <div class="phrase-highlight">${phraseData.verify}</div>
-      </div>
-      <input type="text" id="reconsider-input" placeholder="Type to continue..." autocomplete="off" />
-      <button id="reconsider-submit">Continue</button>
-    </div>
-  `;
+  // Header
+  const header = document.createElement("div");
+  header.className = "reconsider-header";
 
+  const title = document.createElement("h2");
+  title.textContent = "Take a Moment";
+
+  const subtitle = document.createElement("p");
+  subtitle.className = "subtitle";
+  subtitle.textContent =
+    "Before continuing to this website, let's pause and reflect.";
+
+  header.appendChild(title);
+  header.appendChild(subtitle);
+
+  // Body
+  const body = document.createElement("div");
+  body.className = "reconsider-body";
+
+  const phraseContainer = document.createElement("div");
+  phraseContainer.className = "phrase-container";
+
+  const instruction = document.createElement("p");
+  instruction.className = "phrase-instruction";
+  instruction.textContent = "Type this phrase exactly as shown:";
+
+  const highlight = document.createElement("div");
+  highlight.className = "phrase-highlight";
+  highlight.textContent = phraseData.verify;
+
+  const input = document.createElement("input");
+  input.type = "text";
+  input.id = "reconsider-input";
+  input.placeholder = "Type to continue...";
+  input.autocomplete = "off";
+
+  const button = document.createElement("button");
+  button.id = "reconsider-submit";
+  button.textContent = "Continue";
+
+  phraseContainer.appendChild(instruction);
+  phraseContainer.appendChild(highlight);
+  body.appendChild(phraseContainer);
+  body.appendChild(input);
+  body.appendChild(button);
+
+  content.appendChild(header);
+  content.appendChild(body);
   overlay.appendChild(content);
   document.body.appendChild(overlay);
   document.body.style.overflow = "hidden";
-
-  const input = document.getElementById("reconsider-input");
-  const button = document.getElementById("reconsider-submit");
 
   function checkPhrase() {
     if (input.value.trim() === phraseData.verify) {

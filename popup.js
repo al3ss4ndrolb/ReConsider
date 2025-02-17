@@ -106,20 +106,55 @@ function showMessage(input, message) {
 
 function displayUrls(urls) {
   const urlList = document.getElementById("urlList");
-  urlList.innerHTML = "";
+  urlList.innerHTML = ""; // Safe to clear the list
 
   urls.forEach((url, index) => {
     const div = document.createElement("div");
     div.className = "url-item";
-    div.innerHTML = `
-      <span>${url}</span>
-      <button class="delete-btn" data-index="${index}" title="Remove website">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <line x1="18" y1="6" x2="6" y2="18"></line>
-          <line x1="6" y1="6" x2="18" y2="18"></line>
-        </svg>
-      </button>
-    `;
+
+    const span = document.createElement("span");
+    span.textContent = url;
+
+    const button = document.createElement("button");
+    button.className = "delete-btn";
+    button.setAttribute("data-index", index.toString());
+    button.setAttribute("title", "Remove website");
+
+    // Create SVG icon
+    const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+    svg.setAttribute("width", "14");
+    svg.setAttribute("height", "14");
+    svg.setAttribute("viewBox", "0 0 24 24");
+    svg.setAttribute("fill", "none");
+    svg.setAttribute("stroke", "currentColor");
+    svg.setAttribute("stroke-width", "2");
+    svg.setAttribute("stroke-linecap", "round");
+    svg.setAttribute("stroke-linejoin", "round");
+
+    const line1 = document.createElementNS(
+      "http://www.w3.org/2000/svg",
+      "line"
+    );
+    line1.setAttribute("x1", "18");
+    line1.setAttribute("y1", "6");
+    line1.setAttribute("x2", "6");
+    line1.setAttribute("y2", "18");
+
+    const line2 = document.createElementNS(
+      "http://www.w3.org/2000/svg",
+      "line"
+    );
+    line2.setAttribute("x1", "6");
+    line2.setAttribute("y1", "6");
+    line2.setAttribute("x2", "18");
+    line2.setAttribute("y2", "18");
+
+    svg.appendChild(line1);
+    svg.appendChild(line2);
+    button.appendChild(svg);
+
+    div.appendChild(span);
+    div.appendChild(button);
     urlList.appendChild(div);
   });
 

@@ -5,8 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <style>
       body {
-        width: min(600px, 100vw - 2rem);
-        padding: 2rem;
+        width: min(800px, 100vw - 2rem);
+        max-width: none;
+        padding: 2.5rem;
         font-family: system-ui, -apple-system, sans-serif;
         margin: 0 auto;
         color: #334155;
@@ -28,13 +29,14 @@
       .input-group {
         margin-bottom: 2rem;
         width: 100%;
-        display: grid;
+        display: flex;
         gap: 1rem;
+        align-items: flex-start;
       }
 
       .url-list {
         margin: 1.5rem 0;
-        max-height: 350px;
+        max-height: 400px;
         overflow-y: auto;
         width: 100%;
       }
@@ -61,7 +63,7 @@
       }
 
       input[type="text"] {
-        width: 100%;
+        flex: 1;
         padding: 1rem 1.25rem;
         margin: 0;
         border: 1px solid #e2e8f0;
@@ -69,6 +71,7 @@
         font-size: 1rem;
         transition: all 0.15s ease;
         min-height: 48px;
+        max-width: none;
       }
 
       input[type="text"]:focus {
@@ -78,17 +81,19 @@
       }
 
       button {
+        padding: 1rem 2rem;
+        border-radius: 0.75rem;
+        font-size: 1rem;
+        font-weight: 500;
+        min-height: 48px;
+        width: auto;
+        white-space: nowrap;
+        flex-shrink: 0;
         background: #3b82f6;
         color: white;
         border: none;
-        padding: 1rem 1.5rem;
-        border-radius: 0.75rem;
         cursor: pointer;
-        font-size: 1rem;
-        font-weight: 500;
         transition: all 0.15s ease;
-        width: 100%;
-        min-height: 48px;
       }
 
       button:hover {
@@ -130,8 +135,9 @@
       }
 
       .settings-section {
-        margin: 2rem 0;
+        margin: 2.5rem 0;
         width: 100%;
+        max-width: none;
       }
 
       .settings-section h3 {
@@ -144,10 +150,11 @@
       .difficulty-labels {
         display: grid;
         grid-template-columns: repeat(5, 1fr);
-        margin-top: 1rem;
+        margin-top: 1.5rem;
         width: 100%;
+        max-width: none;
         padding: 0;
-        gap: 0.75rem;
+        gap: 2rem;
       }
 
       .difficulty-labels span {
@@ -186,13 +193,14 @@
 
       .difficulty-value {
         text-align: center;
-        font-size: 1rem;
+        font-size: 1.125rem;
         color: #1e293b;
         font-weight: 500;
-        margin: 1rem 0;
-        padding: 0.75rem;
+        margin: 1.5rem 0;
+        padding: 1rem;
         background: #f1f5f9;
         border-radius: 0.75rem;
+        max-width: none;
       }
 
       .footer-links {
@@ -217,43 +225,28 @@
         margin: 1.5rem 0;
       }
 
-      @media (max-width: 480px) {
+      @media (max-width: 640px) {
         body {
           width: 100vw;
           padding: 1.25rem;
         }
 
-        h2 {
-          font-size: 1.35rem;
-          margin-bottom: 1.5rem;
-        }
-
         .input-group {
-          margin-bottom: 1.5rem;
+          flex-direction: column;
           gap: 0.75rem;
         }
 
-        .url-item {
-          padding: 0.875rem 1rem;
-        }
-
-        input[type="text"],
         button {
+          width: 100%;
           padding: 0.875rem 1rem;
-          font-size: 0.9375rem;
-          min-height: 44px;
         }
 
-        .settings-section h3 {
-          font-size: 1.1rem;
+        .difficulty-labels {
+          gap: 0.75rem;
         }
 
-        .difficulty-labels span {
-          font-size: 0.8125rem;
-        }
-
-        .divider {
-          margin: 1.5rem 0;
+        .url-list {
+          max-height: 350px;
         }
       }
     </style>

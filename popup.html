@@ -5,12 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <style>
       body {
-        width: min(450px, 100vw - 2rem);
-        padding: 1.25rem;
+        width: min(600px, 100vw - 2rem);
+        padding: 2rem;
         font-family: system-ui, -apple-system, sans-serif;
         margin: 0 auto;
         color: #334155;
         box-sizing: border-box;
+        line-height: 1.6;
       }
 
       * {
@@ -18,22 +19,22 @@
       }
 
       h2 {
-        margin: 0 0 1.5rem 0;
-        font-size: 1.35rem;
+        margin: 0 0 2rem 0;
+        font-size: 1.5rem;
         color: #1e293b;
         font-weight: 600;
       }
 
       .input-group {
-        margin-bottom: 1.5rem;
+        margin-bottom: 2rem;
         width: 100%;
         display: grid;
-        gap: 0.75rem;
+        gap: 1rem;
       }
 
       .url-list {
-        margin: 1rem 0;
-        max-height: 300px;
+        margin: 1.5rem 0;
+        max-height: 350px;
         overflow-y: auto;
         width: 100%;
       }
@@ -43,31 +44,31 @@
         justify-content: space-between;
         align-items: center;
         background: #f8fafc;
-        padding: 0.875rem 1rem;
-        margin: 0.625rem 0;
-        border-radius: 0.5rem;
+        padding: 1rem 1.25rem;
+        margin: 0.75rem 0;
+        border-radius: 0.75rem;
         border: 1px solid #e2e8f0;
         width: 100%;
-        gap: 0.75rem;
+        gap: 1rem;
       }
 
       .url-item span {
         word-break: break-all;
         margin-right: 0.5rem;
-        font-size: 0.9375rem;
+        font-size: 1rem;
         font-weight: 500;
         flex: 1;
       }
 
       input[type="text"] {
         width: 100%;
-        padding: 0.875rem 1rem;
+        padding: 1rem 1.25rem;
         margin: 0;
         border: 1px solid #e2e8f0;
-        border-radius: 0.5rem;
-        font-size: 0.9375rem;
+        border-radius: 0.75rem;
+        font-size: 1rem;
         transition: all 0.15s ease;
-        min-height: 44px;
+        min-height: 48px;
       }
 
       input[type="text"]:focus {
@@ -80,14 +81,14 @@
         background: #3b82f6;
         color: white;
         border: none;
-        padding: 0.875rem 1.25rem;
-        border-radius: 0.5rem;
+        padding: 1rem 1.5rem;
+        border-radius: 0.75rem;
         cursor: pointer;
-        font-size: 0.9375rem;
+        font-size: 1rem;
         font-weight: 500;
         transition: all 0.15s ease;
         width: 100%;
-        min-height: 44px;
+        min-height: 48px;
       }
 
       button:hover {
@@ -124,18 +125,18 @@
       .divider {
         height: 1px;
         background: #e2e8f0;
-        margin: 1.25rem 0;
+        margin: 2rem 0;
         width: 100%;
       }
 
       .settings-section {
-        margin: 1.5rem 0;
+        margin: 2rem 0;
         width: 100%;
       }
 
       .settings-section h3 {
-        margin: 0 0 1.25rem 0;
-        font-size: 1.1rem;
+        margin: 0 0 1.5rem 0;
+        font-size: 1.25rem;
         color: #1e293b;
         font-weight: 600;
       }
@@ -143,23 +144,23 @@
       .difficulty-labels {
         display: grid;
         grid-template-columns: repeat(5, 1fr);
-        margin-top: 0.75rem;
+        margin-top: 1rem;
         width: 100%;
         padding: 0;
-        gap: 0.5rem;
+        gap: 0.75rem;
       }
 
       .difficulty-labels span {
-        font-size: 0.8125rem;
+        font-size: 0.875rem;
         color: #64748b;
         text-align: center;
       }
 
       .help-text {
-        font-size: 0.875rem;
+        font-size: 0.9375rem;
         color: #64748b;
-        margin-top: 0.75rem;
-        line-height: 1.5;
+        margin-top: 1rem;
+        line-height: 1.6;
       }
 
       input[type="range"] {
@@ -185,64 +186,74 @@
 
       .difficulty-value {
         text-align: center;
-        font-size: clamp(0.8rem, 3vw, 0.875rem);
+        font-size: 1rem;
         color: #1e293b;
         font-weight: 500;
-        margin: 0.75rem 0;
-        padding: 0.5rem;
+        margin: 1rem 0;
+        padding: 0.75rem;
         background: #f1f5f9;
-        border-radius: 0.5rem;
+        border-radius: 0.75rem;
       }
 
       .footer-links {
         display: flex;
         justify-content: center;
-        gap: 1rem;
+        gap: 1.5rem;
         flex-wrap: wrap;
-        margin: 1rem 0;
+        margin: 1.5rem 0;
       }
 
       .footer-links a {
         color: #3b82f6;
         text-decoration: none;
         font-weight: 500;
-        font-size: clamp(0.875rem, 3vw, 1rem);
+        font-size: 1rem;
       }
 
       footer p {
         text-align: center;
-        font-size: clamp(0.75rem, 2.5vw, 0.875rem);
+        font-size: 0.9375rem;
         color: #64748b;
-        margin: 1rem 0;
+        margin: 1.5rem 0;
       }
 
-      @media (max-width: 320px) {
+      @media (max-width: 480px) {
         body {
           width: 100vw;
-          padding: 1rem;
+          padding: 1.25rem;
         }
 
         h2 {
-          font-size: 1.25rem;
-          margin-bottom: 1.25rem;
+          font-size: 1.35rem;
+          margin-bottom: 1.5rem;
+        }
+
+        .input-group {
+          margin-bottom: 1.5rem;
+          gap: 0.75rem;
         }
 
         .url-item {
-          padding: 0.75rem;
+          padding: 0.875rem 1rem;
         }
 
         input[type="text"],
         button {
-          padding: 0.75rem;
-          font-size: 0.875rem;
+          padding: 0.875rem 1rem;
+          font-size: 0.9375rem;
+          min-height: 44px;
         }
 
         .settings-section h3 {
-          font-size: 1rem;
+          font-size: 1.1rem;
         }
 
         .difficulty-labels span {
-          font-size: 0.75rem;
+          font-size: 0.8125rem;
+        }
+
+        .divider {
+          margin: 1.5rem 0;
         }
       }
     </style>
